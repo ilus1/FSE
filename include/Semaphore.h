@@ -4,13 +4,16 @@
 #include <wiringPi.h>
 class Semaphore {
 
-public:
+private:
     unsigned short redLight;
     unsigned short yellowLight;
     unsigned short greenLight;
 
-    Semaphore(unsigned int *lights);
-    void setSemaphoreState(unsigned int semaphoreState);
+public:
+    Semaphore ();
+    Semaphore (unsigned short *lights);
+    void setSemaphoreState (unsigned short semaphoreState);
+
 };
 
 #endif

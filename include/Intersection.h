@@ -5,11 +5,13 @@
 
 class Intersection {
 
-public:
+private:
     Road auxRoad;
     Road mainRoad;
 
-    Intersection(Road auxRoad, Road mainRoad);
+
+public:
+    Intersection (Road auxRoad, Road mainRoad);
 
 };
 

@@ -5,12 +5,20 @@
 
 class Road {
 
-public:
+private:
     Semaphore semaphore;
-    bool havePedestrian;
+    unsigned short minGreenTime;
+    unsigned short maxGreenTime;
+    unsigned short pedestrianSensor;
+    unsigned short carSensorA;
+    unsigned short carSensorA2;
+    unsigned short carSensorB;
+    unsigned short carSensorB2;
 
-    Road(unsigned short *lights, unsigned short minGreenTime, bool isMainRoad);
-
+public:
+    Road ();
+    Road (unsigned short* lights, unsigned short minGreenTime, unsigned short waitingPedestrian, unsigned short carSensorN, unsigned short carSensorS);    
+    Road (unsigned short* lights, unsigned short minGreenTime, unsigned short waitingPedestrian, unsigned short* velocitySensorW, unsigned short* velocitySensorE);
 };
 
 #endif

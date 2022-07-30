@@ -1,22 +1,24 @@
-#include "../includes/Road.h"
+#include "../include/Semaphore.h"
+#include "../include/Road.h"
 
-Road::Road(unsigned short *lights, unsigned short minGreenTime, bool waitingPedestrian) {
-    this->semaphore = Semaphore(lights, minGreenTime);
+Road::Road () {}
+
+Road::Road (unsigned short *lights, unsigned short minGreenTime, unsigned short pedestrianSensor, unsigned short carSensorN, unsigned short carSensorS) {
+    this->semaphore = Semaphore(lights);
     this->minGreenTime = minGreenTime;
-    this->maxGreenTime = this.setMaxGreenTime();
-    this->havePedestrian = waitingPedestrian;
+    this->maxGreenTime = minGreenTime * 2;
+    this->pedestrianSensor = pedestrianSensor;
+    this->carSensorA = carSensorN;
+    this->carSensorB = carSensorS;
 }
 
-Road:Road(unsigned short *lights, unsigned short minGreenTime, bool waitingPedestrian) {
-    this->auxRoadSemaphore = Semaphore(lights);
-    this->mainRoadSemaphore = Semaphore(lights, minGreenTime, true);
-    this->waitingPedestrian = waitingPedestrian;
+Road::Road (unsigned short *lights, unsigned short minGreenTime, unsigned short pedestrianSensor, unsigned short* carSensorW, unsigned short* carSensorE) {
+    this->semaphore = Semaphore(lights);
+    this->minGreenTime = minGreenTime;
+    this->maxGreenTime = minGreenTime * 2;
+    this->pedestrianSensor = pedestrianSensor;
+    this->carSensorA = carSensorW[0];
+    this->carSensorA2 = carSensorW[1];
+    this->carSensorB = carSensorE[0];
+    this->carSensorB2 = carSensorE[1];
 }
-
-void Road::setMaxGreenTime() {
-    this->maxGreenTime = this->minGreenTime * 2;
-}
-
-
-
-Road::Road
