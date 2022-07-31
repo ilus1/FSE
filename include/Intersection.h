@@ -1,6 +1,8 @@
 #ifndef INTERSECTION
 #define INTERSECTION
 
+#include <wiringPi.h>
+
 #include "Road.h"
 
 class Intersection {
@@ -13,6 +15,8 @@ private:
 public:
     Intersection (Road auxRoad, Road mainRoad);
     void setIntersectionState (short auxRoadState, short mainRoadState);
+    void checkAuxRoad();
+    void checkMainRoad();
 };
 
 #endif

@@ -21,6 +21,13 @@ public:
     Road (short* lights, short minGreenTime, short waitingPedestrian, short* velocitySensorW, short* velocitySensorE);
     void portSetup (short port, short state);
     void portSetup (short* port, short state);
+    short getPedestrianSensor ();
+    short getMinGreenTime ();
+    short getMaxGreenTime ();
+    short getCarSensorA ();
+    short getCarSensorA2 ();
+    short getCarSensorB ();
+    short getCarSensorB2 ();
     Semaphore getSemaphore ();
 };
 

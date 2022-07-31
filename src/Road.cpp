@@ -55,3 +55,31 @@ void Road::portSetup (short* ports, short state) {
 Semaphore Road::getSemaphore () {
     return this->semaphore;
 }
+
+short getPedestrianSensor () {
+    return this->pedestrianSensor;
+}
+
+short getMinGreenTime () {
+    return this->minGreenTime;
+}
+
+short getMaxGreenTime () {
+    return this->maxGreenTime;
+}
+
+short getCarSensorA () {
+    return this->carSensorA;
+}
+
+short getCarSensorA2 () {
+    return this->carSensorA2;
+}
+
+short getCarSensorB () {
+    return this->carSensorB;
+}
+
+short getCarSensorB2 () {
+    return this->carSensorB2;
+}
