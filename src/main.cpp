@@ -12,10 +12,6 @@ short sensorCarroSul[2] = {0, 16};
 short velocidadeLeste[2][2] = {{2, 3}, {1, 4}};
 short velocidadeOeste[2][2] = {{23, 24}, {5, 6}};
 
-short auxRoadRed = 0, mainRoadRed = 0;
-short auxRoadYellow = 1, mainRpadYellow = 1;
-short auxRoadGreen = 2, mainRoadGreen = 2;
-
 
 int main(void) {
     short intersectionState = 0;
@@ -27,36 +23,12 @@ int main(void) {
 
     while (intersectionState >= 0) {
         switch (intersectionState) {
-            case 0:
-                intersectionState = 1;
-                intersection.setIntersectionState(auxRoadRed, mainRoadRed);
-                delay(1000);
-                break;
-            case 1:
-                intersectionState = 2;
-                intersection.setIntersectionState(auxRoadRed, mainRoadGreen);
-                intersection.checkAuxRoad();
-                break;
-            case 2:
-                intersectionState = 3;
-                intersection.setIntersectionState(auxRoadRed, mainRpadYellow);
-                delay(3000);
-                break;
-            case 3:
-                intersectionState = 4;
-                intersection.setIntersectionState(auxRoadRed, mainRoadRed);
-                delay(1000);
-                break;
-            case 4:
-                intersectionState = 5;
-                intersection.setIntersectionState(auxRoadGreen, mainRoadRed);
-                intersection.checkMainRoad();
-                break;
-            case 5:
-                intersectionState = 0;
-                intersection.setIntersectionState(auxRoadYellow, mainRoadRed);
-                delay(3000);
-                break;
+            case 0: intersection.bothRoadsClosed(&intersectionState); break;
+            case 1: intersection.openMainRoad(&intersectionState); break;
+            case 2: intersection.slowDownMainRoad(&intersectionState); break;
+            case 3: intersection.bothRoadsClosed(&intersectionState); break;
+            case 4: intersection.openAuxRoad(&intersectionState); break;
+            case 5: intersection.slowDownAuxRoad(&intersectionState); break;
             case 6:
                 while (intersectionState == 6) {
                     intersection.setIntersectionState(auxRoadYellow, mainRpadYellow);
