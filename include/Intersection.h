@@ -14,6 +14,7 @@ private:
 
 public:
     Intersection (Road auxRoad, Road mainRoad);
+    bool checkForWaitingCar();
     void setIntersectionState (short auxRoadState, short mainRoadState);
     void checkAuxRoad();
     void checkMainRoad();

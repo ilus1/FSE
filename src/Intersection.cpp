@@ -31,6 +31,7 @@ void Intersection::checkAuxRoad () {
         || (!waitingPedestrian && !waitingCar 
             && timer < this->auxRoad.getMaxGreenTime())) {
         if (!waitingPedestrian) waitingPedestrian = digitalRead(this->auxRoad.getPedestrianSensor()) == HIGH;
+        if (!waitingCar) waitingCar = checkForWaitingCar();
         delay(200);
         timer += 200;
     }
@@ -87,4 +88,9 @@ void Intersection::slowDownAuxRoad (short* state) {
 void Intersection::closeBothRoads () {
     this->auxRoad.getSemaphore().setSemaphoreState(redLight);
     this->mainRoad.getSemaphore().setSemaphoreState(redLight);
+}
+
+bool Intersection::checkForWaitingCar () {
+    return digitalRead(this->auxRoad.getCarSensorA()) 
+        || digitalRead(this->auxRoad.getCarSensorB());
 }
