@@ -12,25 +12,56 @@ short sensorCarroSul[2] = {0, 16};
 short velocidadeLeste[2][2] = {{2, 3}, {1, 4}};
 short velocidadeOeste[2][2] = {{23, 24}, {5, 6}};
 
-short red = 0;
-short yellow = 1;
-short green = 2;
+short auxRed = 0, mainRed = 0;
+short auxYellow = 1, mainYellow = 1;
+short auxGreen = 2, mainGreen = 2;
 
 
 int main(void) {
+    short intersectionState = 0;
     wiringPiSetup();
 
     Road auxRoad (semaforoAux[1], auxMinGreenTime, pedestreAux[1], sensorCarroNorte[1], sensorCarroSul[1]);
     Road mainRoad (semaforoMain[1], mainMinGreenTime, pedestreMain[1], velocidadeLeste[1], velocidadeOeste[1]);
     Intersection intersection = Intersection(auxRoad, mainRoad);
 
-    for(int i = 0; i < 50; i++) {
-        intersection.setIntersectionState(green, yellow);
-        delay(800);
-        intersection.setIntersectionState(yellow, green);
-        delay(800);
-        intersection.setIntersectionState(red, red);
-        delay(800);
+    while (intersectionState >= -1) {
+        case 0:
+            intersection.setIntersectionState(auxRed, mainRed);
+            delay(1000);
+            break;
+        case 1:
+            intersection.setIntersectionState(auxRed, mainGreen);
+            delay(10000);
+            break;
+        case 2:
+            intersection.setIntersectionState(auxRed, mainYellow);
+            delay(3000);
+            break;
+        case 3:
+            intersection.setIntersectionState(auxRed, mainRed);
+            delay(1000);
+            break;
+        case 4:
+            intersection.setIntersectionState(auxGreen, mainRed);
+            delay(5000);
+            break;
+        case 5:
+            intersection.setIntersectionState(auxYellow, mainRed);
+            delay(3000);
+            break;
+        case 6:
+            while (intersectionState == 6) {
+                intersection.setIntersectionState(auxYellow, mainYellow);
+                delay(1000);
+            }
+            break;
+        case 7:
+            intersection.setIntersectionState(auxYellow, mainYellow);
+            while (intersectionState == 7) {
+                delay(1000);
+            }
+            break;
     }
 
     return 0;
