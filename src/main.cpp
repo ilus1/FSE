@@ -21,22 +21,23 @@ int main(void) {
     Road mainRoad (mainRoadSemaphore[1], mainRoadMinGreenTime, mainRoadPedestrian[1], velocidadeLeste[1], velocidadeOeste[1]);
     Intersection intersection = Intersection(auxRoad, mainRoad);
 
+    intersection.closeBothRoads();
     while (intersectionState >= 0) {
         switch (intersectionState) {
-            case 0: intersection.bothRoadsClosed(&intersectionState); break;
+            case 0: intersection.closeAuxRoad(&intersectionState); break;
             case 1: intersection.openMainRoad(&intersectionState); break;
             case 2: intersection.slowDownMainRoad(&intersectionState); break;
-            case 3: intersection.bothRoadsClosed(&intersectionState); break;
+            case 3: intersection.closeMainRoad(&intersectionState); break;
             case 4: intersection.openAuxRoad(&intersectionState); break;
             case 5: intersection.slowDownAuxRoad(&intersectionState); break;
             case 6:
                 while (intersectionState == 6) {
-                    intersection.setIntersectionState(auxRoadYellow, mainRpadYellow);
+                    intersection.setIntersectionState(1, 1);
                     delay(1000);
                 }
                 break;
             case 7:
-                intersection.setIntersectionState(auxRoadYellow, mainRpadYellow);
+                intersection.setIntersectionState(1, 1);
                 while (intersectionState == 7) {
                     delay(1000);
                 }

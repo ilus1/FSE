@@ -1,11 +1,11 @@
 #include "../include/Road.h"
 #include "../include/Intersection.h"
 
-short bothRoadsClosed_main = 0;
-short mainRoadOpen = 1;
+short closeAuxRoad = 0;
+short openMainRoad = 1;
 short slowDownMainRoad = 2;
-short bothRoadsClosed_aux = 3;
-short auxRoadOpen = 4;
+short closeMainRoad = 3;
+short openAuxRoad = 4;
 short slowDownAuxRoad = 5;
 
 short greenLight = 2;
@@ -48,35 +48,41 @@ void Intersection::checkMainRoad () {
 
 void Intersection::openMainRoad (short* state) {
     this->mainRoad.getSemaphore().setSemaphoreState(greenLight);
-    *state = mainRoadOpen;
+    *state = 2;
     checkAuxRoad();
 }
 
 void Intersection::openAuxRoad (short* state) {
     this->auxRoad.getSemaphore().setSemaphoreState(greenLight);
-    *state = auxRoadOpen;
+    *state = 5;
     checkMainRoad();
 }
 
-void Intersection::bothRoadsClosed (short* state) {
-    if (*state == slowDownMainRoad) {
-        *state = bothRoadsClosed_aux;
-        this->mainRoad.getSemaphore().setSemaphoreState(redLight);
-    } else if (*state == slowDownAuxRoad) {
-        *state = bothRoadsClosed_main;
-        this->auxRoad.getSemaphore().setSemaphoreState(redLight);
-    }
+void Intersection::closeMainRoad (short* state) {
+    *state = 4;
+    this->mainRoad.getSemaphore().setSemaphoreState(redLight);
+    delay(1000);
+}
+
+void Intersection::closeAuxRoad (short* state) {
+    *state = 1;
+    this->auxRoad.getSemaphore().setSemaphoreState(redLight);
     delay(1000);
 }
 
 void Intersection::slowDownMainRoad (short* state) {
     this->mainRoad.getSemaphore().setSemaphoreState(yellowLight);
-    *state = slowDownMainRoad;
+    *state = 3;
     delay(3000);
 }
 
 void Intersection::slowDownAuxRoad (short* state) {
     this->auxRoad.getSemaphore().setSemaphoreState(yellowLight);
-    *state = slowDownAuxRoad;
+    *state = 0;
     delay(3000);
+}
+
+void Intersection::closeBothRoads () {
+    this->auxRoad.getSemaphore().setSemaphoreState(redLight);
+    this->mainRoad.getSemaphore().setSemaphoreState(redLight);
 }

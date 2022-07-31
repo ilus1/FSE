@@ -21,7 +21,9 @@ public:
     void openAuxRoad(short* state);
     void slowDownMainRoad(short* state);
     void slowDownAuxRoad(short* state);
-    void bothRoadsClosed(short* state);
+    void closeAuxRoad(short* state);
+    void closeMainRoad(short* state);
+    void closeBothRoads();
 };
 
 #endif
