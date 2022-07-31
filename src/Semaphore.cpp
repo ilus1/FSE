@@ -2,13 +2,13 @@
 
 Semaphore::Semaphore () {}
 
-Semaphore::Semaphore (unsigned short *lights) {
+Semaphore::Semaphore (short *lights) {
     this->redLight = lights[0];
     this->yellowLight = lights[1];
     this->greenLight = lights[2];
 }
 
-void Semaphore::setSemaphoreState (unsigned short state) {
+void Semaphore::setSemaphoreState (short state) {
     switch (state) {
         case 0:
             digitalWrite (this->redLight, HIGH);

@@ -3,9 +3,9 @@
 
 Road::Road () {}
 
-Road::Road (unsigned short *auxlights, unsigned short* mainLights,
-            unsigned short minGreenTime, unsigned short pedestrianSensor,
-            unsigned short carSensorN, unsigned short carSensorS) {
+Road::Road (short *auxLights, short* mainLights,
+            short minGreenTime, short pedestrianSensor,
+            short carSensorN, short carSensorS) {
     this->auxSemaphore = Semaphore(auxLights);
     this->mainSemaphore = Semaphore(mainLights);
     this->minGreenTime = minGreenTime;
@@ -15,9 +15,9 @@ Road::Road (unsigned short *auxlights, unsigned short* mainLights,
     this->carSensorB = carSensorS;
 }
 
-Road::Road (unsigned short *auxLights, unsigned short* mainLights,
-            unsigned short minGreenTime, unsigned short pedestrianSensor,
-            unsigned short* carSensorW, unsigned short* carSensorE) {
+Road::Road (short *auxLights, short* mainLights,
+            short minGreenTime, short pedestrianSensor,
+            short* carSensorW, short* carSensorE) {
     this->auxSemaphore = Semaphore(auxLights);
     this->mainSemaphore = Semaphore(mainLights);
     this->minGreenTime = minGreenTime;

@@ -5,14 +5,14 @@
 class Semaphore {
 
 private:
-    unsigned short redLight;
-    unsigned short yellowLight;
-    unsigned short greenLight;
+    short redLight;
+    short yellowLight;
+    short greenLight;
 
 public:
     Semaphore ();
-    Semaphore (unsigned short *lights);
-    void setSemaphoreState (unsigned short semaphoreState);
+    Semaphore (short *lights);
+    void setSemaphoreState (short semaphoreState);
 
 };
 
