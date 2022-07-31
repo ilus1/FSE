@@ -56,30 +56,30 @@ Semaphore Road::getSemaphore () {
     return this->semaphore;
 }
 
-short getPedestrianSensor () {
+short Road::getPedestrianSensor () {
     return this->pedestrianSensor;
 }
 
-short getMinGreenTime () {
+short Road::getMinGreenTime () {
     return this->minGreenTime;
 }
 
-short getMaxGreenTime () {
+short Road::getMaxGreenTime () {
     return this->maxGreenTime;
 }
 
-short getCarSensorA () {
+short Road::getCarSensorA () {
     return this->carSensorA;
 }
 
-short getCarSensorA2 () {
+short Road::getCarSensorA2 () {
     return this->carSensorA2;
 }
 
-short getCarSensorB () {
+short Road::getCarSensorB () {
     return this->carSensorB;
 }
 
-short getCarSensorB2 () {
+short Road::getCarSensorB2 () {
     return this->carSensorB2;
 }
