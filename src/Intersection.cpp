@@ -25,9 +25,11 @@ void Intersection::setIntersectionState (short auxRoadState, short mainRoadState
 void Intersection::checkAuxRoad () {
     short timer = 0;
     bool waitingPedestrian = false;
+    bool waitingCar = false;
 
     while (timer < this->auxRoad.getMinGreenTime()
-        || (!waitingPedestrian && timer < this->auxRoad.getMaxGreenTime())) {
+        || (!waitingPedestrian && !waitingCar 
+            && timer < this->auxRoad.getMaxGreenTime())) {
         if (!waitingPedestrian) waitingPedestrian = digitalRead(this->auxRoad.getPedestrianSensor()) == HIGH;
         delay(200);
         timer += 200;

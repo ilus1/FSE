@@ -24,12 +24,12 @@ int main(void) {
     intersection.closeBothRoads();
     while (intersectionState >= 0) {
         switch (intersectionState) {
-            case 0: intersection.closeAuxRoad(&intersectionState); break;
-            case 1: intersection.openMainRoad(&intersectionState); break;
-            case 2: intersection.slowDownMainRoad(&intersectionState); break;
-            case 3: intersection.closeMainRoad(&intersectionState); break;
-            case 4: intersection.openAuxRoad(&intersectionState); break;
-            case 5: intersection.slowDownAuxRoad(&intersectionState); break;
+            case 0: intersection.closeAuxRoad(&intersectionState);      break;
+            case 1: intersection.openMainRoad(&intersectionState);      break;
+            case 2: intersection.slowDownMainRoad(&intersectionState);  break;
+            case 3: intersection.closeMainRoad(&intersectionState);     break;
+            case 4: intersection.openAuxRoad(&intersectionState);       break;
+            case 5: intersection.slowDownAuxRoad(&intersectionState);   break;
             case 6:
                 while (intersectionState == 6) {
                     intersection.setIntersectionState(1, 1);
