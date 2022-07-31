@@ -13,6 +13,7 @@ public:
     Semaphore ();
     Semaphore (short *lights);
     void setSemaphoreState (short semaphoreState);
+    void portSetup (short* ports, short state);
 
 };
 

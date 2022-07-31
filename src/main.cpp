@@ -1,19 +1,6 @@
-
 #include "../include/Intersection.h"
 #include "../include/Road.h"
 
-<<<<<<< HEAD
-short unsigned int semaforoAux[2][3] = {{8, 9, 14}, {31, 25, 29}};
-short unsigned int semaforoMain[2][3] = {{30, 21, 22}, {28, 27, 26}};
-short unsigned int auxMinGreenTime = 5000;
-short unsigned int mainMinGreenTime = 10000;
-short unsigned int pedestreAux[2] = {12, 10};
-short unsigned int pedestreMain[2] = {13, 11};
-short unsigned int sensorCarroNorte[2] = {7, 15};
-short unsigned int sensorCarroSul[2] = {0, 16};
-short unsigned int velocidadeLeste[2][2] = {{2, 3}, {1, 4}};
-short unsigned int velocidadeOeste[2][2] = {{23, 24}, {5, 6}};
-=======
 short semaforoAux[2][3] = {{8, 9, 14}, {31, 25, 29}};
 short semaforoMain[2][3] = {{30, 21, 22}, {28, 27, 26}};
 short auxMinGreenTime = 5000;
@@ -24,13 +11,27 @@ short sensorCarroNorte[2] = {7, 15};
 short sensorCarroSul[2] = {0, 16};
 short velocidadeLeste[2][2] = {{2, 3}, {1, 4}};
 short velocidadeOeste[2][2] = {{23, 24}, {5, 6}};
->>>>>>> 0075888 (Correção de problemas com compilação)
+
+short red = 0;
+short yellow = 1;
+short green = 2;
 
 
 int main(void) {
-    Road auxRoad = Road(semaforoAux[0], semaforoMain[0], auxMinGreenTime, pedestreAux[0], sensorCarroNorte[0], sensorCarroSul[0]);
-    Road mainRoad = Road(semaforoAux[1], semaforoMain[1], mainMinGreenTime, pedestreMain[0], velocidadeLeste[0], velocidadeOeste[0]);
+    wiringPiSetup();
+
+    Road auxRoad (semaforoAux[1], auxMinGreenTime, pedestreAux[1], sensorCarroNorte[1], sensorCarroSul[1]);
+    Road mainRoad (semaforoMain[1], mainMinGreenTime, pedestreMain[1], velocidadeLeste[1], velocidadeOeste[1]);
     Intersection intersection = Intersection(auxRoad, mainRoad);
+
+    for(int i = 0; i < 50; i++) {
+        intersection.setIntersectionState(green, yellow);
+        delay(800);
+        intersection.setIntersectionState(yellow, green);
+        delay(800);
+        intersection.setIntersectionState(red, red);
+        delay(800);
+    }
 
     return 0;
 }
