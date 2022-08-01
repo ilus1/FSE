@@ -35,12 +35,15 @@ Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
 
     this->portSetup(carSensorW[1], INPUT);
     this->carSensorA2 = carSensorW[1];
+    wiringPiISR(carSensorW[0], INT_EDGE_FALLING, movingCarDetection);
 
     this->portSetup(carSensorE[0], INPUT);
     this->carSensorB = carSensorE[0];
 
     this->portSetup(carSensorE[1], INPUT);
     this->carSensorB2 = carSensorE[1];
+    wiringPiISR(carSensorE[1], INT_EDGE_FALLING, movingCarDetection);
+
 }
 
 void Road::portSetup (short port, short state) {
@@ -82,4 +85,21 @@ short Road::getCarSensorB () {
 
 short Road::getCarSensorB2 () {
     return this->carSensorB2;
+}
+
+void movingCarDetection() {
+    this->timer = std::chrono::high_resolution_clock::now();
+    wirinPiISR (this->carSensorA2, INT_EDGE_FALLING, calculateVelocity);
+}
+
+void calculateSpeed() {
+    std::chrono::duration<float> interval = std::chrono::high_resolution_clock::now() - this->timer;
+
+    speed = 3.6 * 1/interval.count();
+
+    std::cout << "velocidade: "  << speed << std::endl;
+}
+
+short secondVelocitySensor() {
+    this->velocityTimer =
 }

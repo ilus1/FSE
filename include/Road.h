@@ -2,6 +2,7 @@
 #define ROAD
 
 #include "Semaphore.h"
+#include "iostream"
 
 class Road {
 
@@ -14,13 +15,18 @@ private:
     short carSensorA2;
     short carSensorB;
     short carSensorB2;
+    vector<vector<short>> carRecord;
 
 public:
+    static std::chrono::time_point<std::chrono::high_resolution_clock> velocityTimer;
+
     Road ();
     Road (short* lights, short minGreenTime, short waitingPedestrian, short carSensorN, short carSensorS);    
     Road (short* lights, short minGreenTime, short waitingPedestrian, short* velocitySensorW, short* velocitySensorE);
     void portSetup (short port, short state);
     void portSetup (short* port, short state);
+    void movingCarDetection();
+    void calculateSpeed();
     short getPedestrianSensor ();
     short getMinGreenTime ();
     short getMaxGreenTime ();

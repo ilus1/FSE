@@ -28,7 +28,7 @@ void Intersection::checkAuxRoad () {
     bool waitingCar = false;
 
     while (timer < this->auxRoad.getMinGreenTime()
-        || (!waitingPedestrian && !waitingCar 
+        || (!waitingPedestrian && !waitingCar
             && timer < this->auxRoad.getMaxGreenTime())) {
         if (!waitingPedestrian) waitingPedestrian = digitalRead(this->auxRoad.getPedestrianSensor()) == HIGH;
         if (!waitingCar) waitingCar = checkForWaitingCar();
@@ -91,6 +91,6 @@ void Intersection::closeBothRoads () {
 }
 
 bool Intersection::checkForWaitingCar () {
-    return digitalRead(this->auxRoad.getCarSensorA()) 
+    return digitalRead(this->auxRoad.getCarSensorA())
         || digitalRead(this->auxRoad.getCarSensorB());
 }
