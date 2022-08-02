@@ -1,6 +1,8 @@
 #include "../include/Road.h"
 #include "../include/Intersection.h"
 
+#include <iostream>
+
 short closeAuxRoad = 0;
 short openMainRoad = 1;
 short slowDownMainRoad = 2;
@@ -32,6 +34,10 @@ void Intersection::checkAuxRoad () {
             && timer < this->auxRoad.getMaxGreenTime())) {
         if (!waitingPedestrian) waitingPedestrian = digitalRead(this->auxRoad.getPedestrianSensor()) == HIGH;
         if (!waitingCar) waitingCar = checkForWaitingCar();
+        else if (checkForWaitingCar() != waitingCar) {
+            this->auxRoad.redLightInfraction();
+            waitingCar = false;
+        }
         delay(200);
         timer += 200;
     }

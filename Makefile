@@ -28,7 +28,7 @@ OBJS= $(addprefix $(DIR_OBJ)/,$(notdir $(SOURCE:.cpp=.o)))
 CC = g++
 
 LIBS = -lwiringPi
-CFLAGS = #-std=c++14 -c -Wall -W -Wextra -I $(DIR_INCLUDE)
+CFLAGS = -std=c++14 -c -Wall -W -Wextra -I $(DIR_INCLUDE)
 
 ###############################################################################
 
@@ -53,7 +53,7 @@ reset: clean
 # Build ########################################################################
 
 $(EXEC): $(OBJS)
-	$(CC)  $^ -o $@ $(LIBS)
+	$(CC) $^ -o $@ $(LIBS)
 
 $(DIR_OBJ)/main.o: $(DIR_SOURCE)/main.cpp
 	@mkdir -p $(DIR_OBJ)

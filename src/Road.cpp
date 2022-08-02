@@ -1,6 +1,30 @@
 #include "../include/Semaphore.h"
 #include "../include/Road.h"
 
+static std::chrono::time_point<std::chrono::high_resolution_clock> firstTimer;
+static std::chrono::time_point<std::chrono::high_resolution_clock> secondTimer;
+
+
+void calculateSpeed () {
+    std::chrono::duration<float> interval = firstTimer - secondTimer;
+
+    short speed = (short) 3.6 * 1/interval.count();
+
+    std::cout << "velocidade: "  << speed << std::endl;
+}
+
+
+void speedMeasurementFirstSensor () {
+    firstTimer = std::chrono::high_resolution_clock::now();
+}
+
+void speedMeasurementSecondSensor () {
+    secondTimer = std::chrono::high_resolution_clock::now();
+    calculateSpeed();
+}
+
+
+
 Road::Road () {}
 
 Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
@@ -32,22 +56,24 @@ Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
 
     this->portSetup(carSensorW[0], INPUT);
     this->carSensorA = carSensorW[0];
+    wiringPiISR(carSensorW[0], INT_EDGE_FALLING, speedMeasurementSecondSensor);
 
     this->portSetup(carSensorW[1], INPUT);
     this->carSensorA2 = carSensorW[1];
-    wiringPiISR(carSensorW[0], INT_EDGE_FALLING, movingCarDetection);
+    wiringPiISR(carSensorW[1], INT_EDGE_FALLING, speedMeasurementFirstSensor);
 
     this->portSetup(carSensorE[0], INPUT);
     this->carSensorB = carSensorE[0];
+    wiringPiISR(carSensorE[0], INT_EDGE_FALLING, speedMeasurementSecondSensor);
 
     this->portSetup(carSensorE[1], INPUT);
     this->carSensorB2 = carSensorE[1];
-    wiringPiISR(carSensorE[1], INT_EDGE_FALLING, movingCarDetection);
+    wiringPiISR(carSensorE[1], INT_EDGE_FALLING, speedMeasurementFirstSensor);
 
 }
 
 void Road::portSetup (short port, short state) {
-    pinMode (port, state);
+    pinMode(port, state);
 }
 
 void Road::portSetup (short* ports, short state) {
@@ -87,19 +113,6 @@ short Road::getCarSensorB2 () {
     return this->carSensorB2;
 }
 
-void movingCarDetection() {
-    this->timer = std::chrono::high_resolution_clock::now();
-    wirinPiISR (this->carSensorA2, INT_EDGE_FALLING, calculateVelocity);
-}
-
-void calculateSpeed() {
-    std::chrono::duration<float> interval = std::chrono::high_resolution_clock::now() - this->timer;
-
-    speed = 3.6 * 1/interval.count();
-
-    std::cout << "velocidade: "  << speed << std::endl;
-}
-
-short secondVelocitySensor() {
-    this->velocityTimer =
+void Road::redLightInfraction() {
+    this->carRecord.push_back({1, 0});
 }
