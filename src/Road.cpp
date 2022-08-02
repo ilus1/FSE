@@ -6,7 +6,7 @@ static std::chrono::time_point<std::chrono::high_resolution_clock> secondTimer;
 
 
 void calculateSpeed () {
-    std::chrono::duration<float> interval = firstTimer - secondTimer;
+    std::chrono::duration<float> interval = secondTimer - firstTimer;
 
     short speed = (short) 3.6 * 1/interval.count();
 
