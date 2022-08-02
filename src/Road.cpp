@@ -8,7 +8,7 @@ static std::chrono::time_point<std::chrono::high_resolution_clock> secondTimer;
 void calculateSpeed () {
     std::chrono::duration<float> interval = secondTimer - firstTimer;
 
-    short speed = (short) 3.6 * 1/interval.count();
+    short speed = 3.6 * 1/interval.count();
 
     std::cout << "velocidade: "  << speed << std::endl;
 }
@@ -114,5 +114,5 @@ short Road::getCarSensorB2 () {
 }
 
 void Road::redLightInfraction() {
-    this->carRecord.push_back({1, 0});
+   std::cout << "Furou sinal." << std::endl;
 }
