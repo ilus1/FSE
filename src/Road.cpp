@@ -126,7 +126,7 @@ short Road::getCarSensorB2 () {
     return this->carSensorB2;
 }
 
-void Road::redLightInfraction() {
+void Road::redLightInfraction () {
    std::cout << "Furou sinal." << std::endl;
    system("omxplayer trafficViolation.mp3");
 }

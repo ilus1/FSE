@@ -50,7 +50,7 @@ void intersectionControl (int i) {
 }
 
 
-int main(void) {
+int main (void) {
     wiringPiSetup();
 
     std::thread intersection1(intersectionControl, 0);
