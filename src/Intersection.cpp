@@ -3,13 +3,6 @@
 
 #include <iostream>
 
-// const static short closeAuxRoad = 0;
-// const static short openMainRoad = 1;
-// const static short slowDownMainRoad = 2;
-// const static short closeMainRoad = 3;
-// const static short openAuxRoad = 4;
-// const static short slowDownAuxRoad = 5;
-
 const static short GREEN_LIGHT = 2;
 const static short YELLOW_LIGHT = 1;
 const static short REG_LIGHT = 0;

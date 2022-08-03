@@ -17,8 +17,8 @@ int main(void) {
     short intersectionState = 0;
     wiringPiSetup();
 
-    Road auxRoad (auxRoadSemaphore[1], auxRoadMinGreenTime, auxRoadPedestrian[1], northCarSensor[1], southCarSensor[1]);
-    Road mainRoad (mainRoadSemaphore[1], mainRoadMinGreenTime, mainRoadPedestrian[1], eastCarSensors[1], westCarSensors[1]);
+    Road auxRoad (auxRoadSemaphore[0], auxRoadMinGreenTime, auxRoadPedestrian[0], northCarSensor[0], southCarSensor[0]);
+    Road mainRoad (mainRoadSemaphore[0], mainRoadMinGreenTime, mainRoadPedestrian[0], eastCarSensors[0], westCarSensors[0]);
     Intersection intersection = Intersection(auxRoad, mainRoad);
 
     intersection.closeBothRoads();

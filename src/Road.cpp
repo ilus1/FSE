@@ -10,7 +10,10 @@ void calculateSpeed () {
 
     short speed = 3.6 * 1/interval.count();
 
-    std::cout << "velocidade: "  << speed << std::endl;
+    if (speed > 66)
+        std::cout << "INFRACAO: "  << speed << "km/h" << std::endl;
+    else
+        std::cout << "Velocidade: "  << speed << "km/h" << std::endl;
 }
 
 

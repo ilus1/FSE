@@ -35,7 +35,6 @@ public:
     short getCarSensorB ();
     short getCarSensorB2 ();
     void redLightInfraction();
-    // void calculateSpeed();
     Semaphore getSemaphore ();
 };
 
