@@ -15,10 +15,10 @@ void calculateSpeed () {
     
     if (digitalRead(*mainRedLight)) {
         std::cout << "Furou sinal." << std::endl;
-        system("omxplayer trafficViolation.wav");
+        system("omxplayer trafficViolation.mp3");
     } else if (speed > SPEED_LIMIT) {
         std::cout << "INFRACAO: "  << speed << "km/h" << std::endl;
-        system("omxplayer trafficViolation.wav");
+        system("omxplayer trafficViolation.mp3");
     }
     else
         std::cout << "Velocidade: "  << speed << "km/h" << std::endl;
@@ -128,5 +128,5 @@ short Road::getCarSensorB2 () {
 
 void Road::redLightInfraction() {
    std::cout << "Furou sinal." << std::endl;
-   system("omxplayer trafficViolation.wav");
+   system("omxplayer trafficViolation.mp3");
 }
