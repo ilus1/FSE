@@ -52,13 +52,13 @@ void Intersection::checkMainRoad (short minTime, short maxTime) {
 void Intersection::openMainRoad (short* state) {
     this->mainRoad.getSemaphore().setSemaphoreState(GREEN_LIGHT);
     *state = 2;
-    checkAuxRoad(this->mainRoad.getMinGreenTime(), this->mainRoad.getMaxGreenTime());
+    checkAuxRoad(this->auxRoad.getMinGreenTime(), this->auxRoad.getMaxGreenTime());
 }
 
 void Intersection::openAuxRoad (short* state) {
     this->auxRoad.getSemaphore().setSemaphoreState(GREEN_LIGHT);
     *state = 5;
-    checkMainRoad(this->auxRoad.getMinGreenTime(), this->auxRoad.getMaxGreenTime());
+    checkMainRoad(this->mainRoad.getMinGreenTime(), this->mainRoad.getMaxGreenTime());
 }
 
 void Intersection::closeMainRoad (short* state) {
