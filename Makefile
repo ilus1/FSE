@@ -27,7 +27,7 @@ OBJS= $(addprefix $(DIR_OBJ)/,$(notdir $(SOURCE:.cpp=.o)))
 # Compiler and flags:
 CC = g++
 
-LIBS = -lwiringPi
+LIBS = -lwiringPi -pthread
 CFLAGS = -std=c++14 -c -Wall -W -Wextra -I $(DIR_INCLUDE)
 
 ###############################################################################
