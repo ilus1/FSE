@@ -18,7 +18,7 @@ Este trabalho tem por objetivo a criação de um sistema distribuído para o con
 ssh "nome_de_usuario"@"ip_da_placa"
 ```
 
-2) Clonar o repositório:
+2) Após a liberação de acesso à placa, clonar o repositório do projeto:
 
 ```sh 
 git clone git@github.com:ilus1/Trabalho-1.git
@@ -30,12 +30,11 @@ git clone git@github.com:ilus1/Trabalho-1.git
 make all
 ```
 
-4) Execute a aplicação:
+4) Executar a aplicação:
 
 ```sh 
 ./trafficIntersection
 ```
 
 ## Uso 
-O projeto foi implementado apenas para o funcionamento dos servidores distribuidos, e até esta etapa o próprio executável deverá se responsabilizar por mapear as GPIOs que serão utilizadas.
-
+O projeto foi implementado apenas para o funcionamento dos servidores distribuídos, e até esta etapa o próprio executável deverá se responsabilizar por mapear as GPIOs que serão utilizadas.
