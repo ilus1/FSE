@@ -10,8 +10,10 @@ void calculateSpeed () {
 
     short speed = 3.6 * 1/interval.count();
 
-    if (speed > 66)
+    if (speed > 66) {
         std::cout << "INFRACAO: "  << speed << "km/h" << std::endl;
+        system("omxplayer trafficViolation.wav");
+    }
     else
         std::cout << "Velocidade: "  << speed << "km/h" << std::endl;
 }
@@ -118,4 +120,5 @@ short Road::getCarSensorB2 () {
 
 void Road::redLightInfraction() {
    std::cout << "Furou sinal." << std::endl;
+   system("omxplayer trafficViolation.wav");
 }

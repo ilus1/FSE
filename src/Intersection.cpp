@@ -33,8 +33,8 @@ void Intersection::checkAuxRoad () {
             this->auxRoad.redLightInfraction();
             waitingCar = false;
         }
-        delay(200);
-        timer += 200;
+        delay(50);
+        timer += 50;
     }
 }
 
