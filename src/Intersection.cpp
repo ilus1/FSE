@@ -3,16 +3,16 @@
 
 #include <iostream>
 
-short closeAuxRoad = 0;
-short openMainRoad = 1;
-short slowDownMainRoad = 2;
-short closeMainRoad = 3;
-short openAuxRoad = 4;
-short slowDownAuxRoad = 5;
+// const static short closeAuxRoad = 0;
+// const static short openMainRoad = 1;
+// const static short slowDownMainRoad = 2;
+// const static short closeMainRoad = 3;
+// const static short openAuxRoad = 4;
+// const static short slowDownAuxRoad = 5;
 
-short greenLight = 2;
-short yellowLight = 1;
-short redLight = 0;
+const static short GREEN_LIGHT = 2;
+const static short YELLOW_LIGHT = 1;
+const static short REG_LIGHT = 0;
 
 Intersection::Intersection (Road auxRoad, Road mainRoad) {
     this->auxRoad = auxRoad;
@@ -32,8 +32,10 @@ void Intersection::checkAuxRoad () {
     while (timer < this->auxRoad.getMinGreenTime()
         || (!waitingPedestrian && !waitingCar
             && timer < this->auxRoad.getMaxGreenTime())) {
-        if (!waitingPedestrian) waitingPedestrian = digitalRead(this->auxRoad.getPedestrianSensor()) == HIGH;
-        if (!waitingCar) waitingCar = checkForWaitingCar();
+        if (!waitingPedestrian) 
+            waitingPedestrian = digitalRead(this->auxRoad.getPedestrianSensor()) == HIGH;
+        if (!waitingCar)
+            waitingCar = checkForWaitingCar();
         else if (checkForWaitingCar() != waitingCar) {
             this->auxRoad.redLightInfraction();
             waitingCar = false;
@@ -56,44 +58,44 @@ void Intersection::checkMainRoad () {
 }
 
 void Intersection::openMainRoad (short* state) {
-    this->mainRoad.getSemaphore().setSemaphoreState(greenLight);
+    this->mainRoad.getSemaphore().setSemaphoreState(GREEN_LIGHT);
     *state = 2;
     checkAuxRoad();
 }
 
 void Intersection::openAuxRoad (short* state) {
-    this->auxRoad.getSemaphore().setSemaphoreState(greenLight);
+    this->auxRoad.getSemaphore().setSemaphoreState(GREEN_LIGHT);
     *state = 5;
     checkMainRoad();
 }
 
 void Intersection::closeMainRoad (short* state) {
     *state = 4;
-    this->mainRoad.getSemaphore().setSemaphoreState(redLight);
+    this->mainRoad.getSemaphore().setSemaphoreState(REG_LIGHT);
     delay(1000);
 }
 
 void Intersection::closeAuxRoad (short* state) {
     *state = 1;
-    this->auxRoad.getSemaphore().setSemaphoreState(redLight);
+    this->auxRoad.getSemaphore().setSemaphoreState(REG_LIGHT);
     delay(1000);
 }
 
 void Intersection::slowDownMainRoad (short* state) {
-    this->mainRoad.getSemaphore().setSemaphoreState(yellowLight);
+    this->mainRoad.getSemaphore().setSemaphoreState(YELLOW_LIGHT);
     *state = 3;
     delay(3000);
 }
 
 void Intersection::slowDownAuxRoad (short* state) {
-    this->auxRoad.getSemaphore().setSemaphoreState(yellowLight);
+    this->auxRoad.getSemaphore().setSemaphoreState(YELLOW_LIGHT);
     *state = 0;
     delay(3000);
 }
 
 void Intersection::closeBothRoads () {
-    this->auxRoad.getSemaphore().setSemaphoreState(redLight);
-    this->mainRoad.getSemaphore().setSemaphoreState(redLight);
+    this->auxRoad.getSemaphore().setSemaphoreState(REG_LIGHT);
+    this->mainRoad.getSemaphore().setSemaphoreState(REG_LIGHT);
 }
 
 bool Intersection::checkForWaitingCar () {

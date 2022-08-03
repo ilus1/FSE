@@ -7,18 +7,18 @@ short mainRoadMinGreenTime = 5000;
 short auxRoadMinGreenTime = 10000;
 short mainRoadPedestrian[2] = {13, 11};
 short auxRoadPedestrian[2] = {12, 10};
-short sensorCarroNorte[2] = {7, 15};
-short sensorCarroSul[2] = {0, 16};
-short velocidadeLeste[2][2] = {{2, 3}, {1, 4}};
-short velocidadeOeste[2][2] = {{23, 24}, {5, 6}};
+short northCarSensor[2] = {7, 15};
+short southCarSensor[2] = {0, 16};
+short eastCarSensors[2][2] = {{2, 3}, {1, 4}};
+short westCarSensors[2][2] = {{24, 23}, {5, 6}};
 
 
 int main(void) {
     short intersectionState = 0;
     wiringPiSetup();
 
-    Road auxRoad (auxRoadSemaphore[1], auxRoadMinGreenTime, auxRoadPedestrian[1], sensorCarroNorte[1], sensorCarroSul[1]);
-    Road mainRoad (mainRoadSemaphore[1], mainRoadMinGreenTime, mainRoadPedestrian[1], velocidadeLeste[1], velocidadeOeste[1]);
+    Road auxRoad (auxRoadSemaphore[0], auxRoadMinGreenTime, auxRoadPedestrian[0], northCarSensor[0], southCarSensor[0]);
+    Road mainRoad (mainRoadSemaphore[0], mainRoadMinGreenTime, mainRoadPedestrian[0], eastCarSensors[0], westCarSensors[0]);
     Intersection intersection = Intersection(auxRoad, mainRoad);
 
     intersection.closeBothRoads();
