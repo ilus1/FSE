@@ -4,13 +4,19 @@
 static std::chrono::time_point<std::chrono::high_resolution_clock> firstTimer;
 static std::chrono::time_point<std::chrono::high_resolution_clock> secondTimer;
 
+const static short SPEED_LIMIT = 66;
+
+short *mainRedLight;
 
 void calculateSpeed () {
     std::chrono::duration<float> interval = secondTimer - firstTimer;
 
     short speed = 3.6 * 1/interval.count();
-
-    if (speed > 66) {
+    
+    if (digitalRead(*mainRedLight)) {
+        std::cout << "Furou sinal." << std::endl;
+        system("omxplayer trafficViolation.wav");
+    } else if (speed > SPEED_LIMIT) {
         std::cout << "INFRACAO: "  << speed << "km/h" << std::endl;
         system("omxplayer trafficViolation.wav");
     }
@@ -35,6 +41,7 @@ Road::Road () {}
 Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
             short carSensorN, short carSensorS) {
     this->semaphore = Semaphore(lights);
+    mainRedLight = &lights[2];
 
     this->minGreenTime = minGreenTime;
     this->maxGreenTime = minGreenTime * 2;
@@ -52,6 +59,7 @@ Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
 Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
             short* carSensorW, short* carSensorE) {
     this->semaphore = Semaphore(lights);
+    mainRedLight = &lights[2];
 
     this->minGreenTime = minGreenTime;
     this->maxGreenTime = minGreenTime * 2;
