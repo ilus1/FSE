@@ -1,19 +1,19 @@
 #include "../include/Semaphore.h"
 #include "../include/Road.h"
 
-static std::chrono::time_point<std::chrono::high_resolution_clock> firstTimer;
-static std::chrono::time_point<std::chrono::high_resolution_clock> secondTimer;
+std::chrono::time_point<std::chrono::high_resolution_clock> firstTimer;
+std::chrono::time_point<std::chrono::high_resolution_clock> secondTimer;
 
 const static short SPEED_LIMIT = 66;
 
-short *mainRedLight;
+short mainRedLight;
 
 void calculateSpeed () {
     std::chrono::duration<float> interval = secondTimer - firstTimer;
 
     short speed = 3.6 * 1/interval.count();
     
-    if (digitalRead(*mainRedLight)) {
+    if (digitalRead(mainRedLight)) {
         std::cout << "Furou sinal." << std::endl;
         system("omxplayer trafficViolation.mp3");
     } else if (speed > SPEED_LIMIT) {
@@ -41,7 +41,7 @@ Road::Road () {}
 Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
             short carSensorN, short carSensorS) {
     this->semaphore = Semaphore(lights);
-    mainRedLight = &lights[2];
+    mainRedLight = lights[2];
 
     this->minGreenTime = minGreenTime;
     this->maxGreenTime = minGreenTime * 2;
@@ -59,7 +59,7 @@ Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
 Road::Road (short *lights, short minGreenTime, short pedestrianSensor,
             short* carSensorW, short* carSensorE) {
     this->semaphore = Semaphore(lights);
-    mainRedLight = &lights[2];
+    mainRedLight = lights[2];
 
     this->minGreenTime = minGreenTime;
     this->maxGreenTime = minGreenTime * 2;

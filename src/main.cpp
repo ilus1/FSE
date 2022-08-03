@@ -7,8 +7,8 @@ short mainRoadSemaphore[2][3] = {{30, 21, 22}, {28, 27, 26}};
 short auxRoadSemaphore[2][3] = {{8, 9, 14}, {31, 25, 29}};
 short mainRoadMinGreenTime = 5000;
 short auxRoadMinGreenTime = 10000;
-short mainRoadPedestrian[2] = {12, 11};
-short auxRoadPedestrian[2] = {13, 10};
+short mainRoadPedestrian[2] = {12, 10};
+short auxRoadPedestrian[2] = {13, 11};
 short northCarSensor[2] = {7, 15};
 short southCarSensor[2] = {0, 16};
 short eastCarSensors[2][2] = {{2, 3}, {1, 4}};
@@ -21,7 +21,7 @@ void intersectionControl (int i) {
     Road auxRoad (auxRoadSemaphore[i], auxRoadMinGreenTime, auxRoadPedestrian[i], northCarSensor[i], southCarSensor[i]);
     Road mainRoad (mainRoadSemaphore[i], mainRoadMinGreenTime, mainRoadPedestrian[i], eastCarSensors[i], westCarSensors[i]);
     Intersection intersection = Intersection(auxRoad, mainRoad);
-    
+
     intersection.closeBothRoads();
     while (intersectionState >= 0) {
         switch (intersectionState) {
@@ -35,10 +35,12 @@ void intersectionControl (int i) {
                 while (intersectionState == 6) {
                     intersection.setIntersectionState(1, 1);
                     delay(1000);
+                    intersection.closeBothRoads();
+                    delay(500);
                 }
                 break;
             case 7:
-                intersection.setIntersectionState(1, 1);
+                intersection.setIntersectionState(0, 2);
                 while (intersectionState == 7) {
                     delay(1000);
                 }
